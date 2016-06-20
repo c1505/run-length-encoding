@@ -1,18 +1,24 @@
-require "pry"
+
+module BookKeeping
+    VERSION = 2 
+end
 class RunLengthEncoding
     def self.encode(input)
         input_array = input.split("")
-        output = [1]
+        output = []
         count = 1
         while !input_array.empty?
             if input_array[0] == input_array[1]
                 count += 1
-                if output[-1].class == Fixnum
-                    output.pop
+                unless output.empty?
+                    if output[-1].class == Fixnum
+                        output.pop
+                    end
                 end
                 output << count
                 input_array.shift
             else
+                # output.pop
                 output << input_array.shift
                 count = 1
             end
@@ -42,14 +48,3 @@ class RunLengthEncoding
         output.join
     end
 end
-
-    # input = '12WB12W3B24WB'
-    # output = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB'
-    # print RunLengthEncoding.decode(input)
-#   input = 'AABBBCCCC'
-#   output = '2A3B4C'
-#   start with first letter.  pop it off the string or array.  
-#   pop off the second letter and check if equal to the first.  
-#   if equal increment the account that started at one by one
-#   set current letter to the one that was just popped off
-#   repeat
